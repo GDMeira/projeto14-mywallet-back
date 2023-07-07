@@ -4,7 +4,7 @@ export function schemaValidation(schema) {
 
         if (result.error) {
             const messages = result.error.details.map(detail => detail.message)
-            console.log(messages)
+
             return res.status(422).send({message: messages})
         }
 
