@@ -45,6 +45,6 @@ export async function login(req, res) {
         res.status(500).send({message: error.message});
     }
 
-    res.status(200).send(token);
+    res.status(200).send({token, name: user.name});
     
 }
