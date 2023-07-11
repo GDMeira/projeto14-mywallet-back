@@ -23,7 +23,7 @@ export async function getTransactions(req, res) {
         const transactions = await db.collection(collections.transactions)
             .find({userId: req.headers.authorization})
             .project({userId: 0})
-            .sort({natural: -1})
+            .sort({natural: 1})
             .toArray();
 
         res.send(transactions);
