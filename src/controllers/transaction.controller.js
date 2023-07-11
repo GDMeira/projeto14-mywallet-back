@@ -8,7 +8,7 @@ export async function createTransaction(req, res) {
         db.collection(collections.transactions).insertOne({
             ...req.body,
             value: Number(req.body.value),
-            date: dayjs().format('DD/MM/YYYY'),
+            date: dayjs(),
             userId: req.headers.authorization
         })
 
@@ -21,9 +21,8 @@ export async function createTransaction(req, res) {
 export async function getTransactions(req, res) {
     try {
         const transactions = await db.collection(collections.transactions)
-            .find({userId: req.headers.authorization})
-            .project({userId: 0})
-            .sort({natural: 1})
+            .find({userId: req.headers.authorization},{userId: 0})
+            .sort({ date: 1 })
             .toArray();
 
         res.send(transactions);
