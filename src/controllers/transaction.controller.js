@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import { collections, db } from "../database/db.js";
+import { ObjectId } from "mongodb";
 
 
 export async function createTransaction(req, res) {
@@ -19,13 +20,13 @@ export async function createTransaction(req, res) {
 
 export async function getTransactions(req, res) {
     try {
-        const transcations = await db.collection(collections.transactions)
+        const transactions = await db.collection(collections.transactions)
             .find({userId: req.headers.authorization})
             .project({userId: 0})
             .sort({natural: -1})
             .toArray();
 
-        res.send(transcations);
+        res.send(transactions);
     } catch (error) {
         res.status(500).send({message: error.message});
     }

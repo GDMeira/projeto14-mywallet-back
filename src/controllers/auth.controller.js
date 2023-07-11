@@ -40,7 +40,8 @@ export async function login(req, res) {
     const token = uuid();
 
     try {
-        await db.collection(collections.sessions).insertOne({ token, userId: user._id });
+        const newSession = { token, userId: user._id.toString() };
+        await db.collection(collections.sessions).insertOne(newSession);
     } catch (error) {
         res.status(500).send({ message: error.message });
     }
